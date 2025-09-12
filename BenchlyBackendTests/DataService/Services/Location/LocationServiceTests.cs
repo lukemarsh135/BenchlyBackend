@@ -48,9 +48,9 @@ public sealed class LocationServiceTests : IDisposable
     }
 
     [Fact]
-    public void LocationServicce_Errors_OnMissing_Resource_ConstructorArgument()
+    public void LocationServicce_Errors_OnMissing_Repository_ConstructorArgument()
     {
-        var expectedException = new ArgumentNullException("locationResource");
+        var expectedException = new ArgumentNullException("locationRepository");
 
         var ex = Assert.Throws<ArgumentNullException>(() => new LocationService(null!));
 
