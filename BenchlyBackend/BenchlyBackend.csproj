@@ -18,4 +18,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\Review\" />
+    <Folder Include="DataService\Repositories\Review\" />
+    <Folder Include="DataService\Services\Review\" />
+  </ItemGroup>
+
 </Project>

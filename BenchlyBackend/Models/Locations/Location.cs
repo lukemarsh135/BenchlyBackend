@@ -1,5 +1,4 @@
-﻿using BenchlyBackend.Infrastructure.Attributes;
-using BenchlyBackend.Models.Reviews;
+﻿using BenchlyBackend.Models.Reviews;
 using BenchlyBackend.Models.Tags;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -9,8 +8,7 @@ namespace BenchlyBackend.Models.Locations;
 /// <summary>
 ///     Location.
 /// </summary>
-[Entity]
-public class Location 
+public sealed class Location 
 {
     /// <summary>
     ///     The unique identifier for the location.
@@ -21,12 +19,12 @@ public class Location
     /// <summary>
     ///     Images associated with the location.
     /// </summary>
-    public List<string>? Images { get; set; } 
+    public ICollection<string>? Images { get; set; }
 
     /// <summary>
     ///     Tags associated with the location.
     /// </summary>
-    public List<Tag>? Tags { get; set; }
+    public ICollection<Tag>? Tags { get; set; } = [];
 
     /// <summary>
     ///     Latitude of the location.
@@ -41,7 +39,7 @@ public class Location
     /// <summary>
     ///     The reviews associated with the location.
     /// </summary>
-    public List<Review>? Reviews { get; set; }
+    public ICollection<Review>? Reviews { get; set; } = [];
 
     /// <summary>
     ///     The distance from the current location in miles.

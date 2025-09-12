@@ -6,12 +6,12 @@ using Moq;
 namespace BenchlyBackendTests.DataService.Services;
 public sealed class LocationServiceTests : IDisposable
 {
-    private Mock<ILocationResource> LocationResourceMock { get; set; } = new();
+    private Mock<ILocationRepository> LocationRepositoryMock { get; set; } = new();
     private LocationService? LocationService { get; set; }
 
     public LocationServiceTests()
     {
-        LocationService = new(LocationResourceMock.Object);
+        LocationService = new(LocationRepositoryMock.Object);
     }
 
     [Fact]
@@ -29,7 +29,7 @@ public sealed class LocationServiceTests : IDisposable
         await LocationService!.GetLocationsForUsersMapViewAsync(minLat, maxLat, minLng, maxLng);
 
         // Assert
-        LocationResourceMock.Verify(x => x.GetLocationsForUsersMapViewAsync(It.IsAny<double>(), It.IsAny<double>(), It.IsAny<double>(), It.IsAny<double>()), Times.Once);
+        LocationRepositoryMock.Verify(x => x.GetLocationsForUsersMapViewAsync(It.IsAny<double>(), It.IsAny<double>(), It.IsAny<double>(), It.IsAny<double>()), Times.Once);
     }
 
     [Fact]
@@ -44,7 +44,7 @@ public sealed class LocationServiceTests : IDisposable
         await LocationService!.AddLocationAsync(location);
 
         // Assert
-        LocationResourceMock.Verify(x => x.AddLocationAsync(It.IsAny<Location>()), Times.Once);
+        LocationRepositoryMock.Verify(x => x.AddLocationAsync(It.IsAny<Location>()), Times.Once);
     }
 
     [Fact]
@@ -71,6 +71,6 @@ public sealed class LocationServiceTests : IDisposable
 
     public void Dispose()
     {
-        LocationResourceMock.VerifyNoOtherCalls();
+        LocationRepositoryMock.VerifyNoOtherCalls();
     }
 }

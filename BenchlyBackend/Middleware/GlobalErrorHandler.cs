@@ -25,9 +25,9 @@ public class GlobalErrorHandler(RequestDelegate next, ILogger<GlobalErrorHandler
     {
         int code = exception switch
         {
-            ArgumentException => code = StatusCodes.Status400BadRequest,
-            UnauthorizedAccessException => code = StatusCodes.Status401Unauthorized,
-            DbUpdateException => code = StatusCodes.Status409Conflict,
+            ArgumentException => StatusCodes.Status400BadRequest,
+            UnauthorizedAccessException => StatusCodes.Status401Unauthorized,
+            DbUpdateException => StatusCodes.Status409Conflict,
             _ => StatusCodes.Status500InternalServerError
         };
 

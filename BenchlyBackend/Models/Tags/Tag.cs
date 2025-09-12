@@ -1,27 +1,28 @@
-﻿using BenchlyBackend.Infrastructure.Attributes;
-using BenchlyBackend.Models.Locations;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using BenchlyBackend.Models.Locations;
+using System.Text.Json.Serialization;
 
 namespace BenchlyBackend.Models.Tags;
 
 /// <summary>
 ///     Defines a tag that can be associated with a location.
 /// </summary>
-[Entity]
-public class Tag
+public sealed class Tag
 {
     /// <summary>
     ///     The tag's unique identifier.
     /// </summary>
-    [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
 
     /// <summary>
-    ///     The Locations associated with the tag.
+    ///     The Location associated with the tag (foreign key).
     /// </summary>
-    public List<Location> Locations { get; set; } = [];
+    public int LocationId { get; set; }
+
+    /// <summary>
+    ///     The navigation property to the Location that this tag is associated with.
+    /// </summary>
+    [JsonIgnore]
+    public Location? Location { get; set; } = default!;
 
     /// <summary>
     ///     The tags title or name.

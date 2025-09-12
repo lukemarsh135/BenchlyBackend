@@ -2,18 +2,27 @@
 
 namespace BenchlyBackend.DataService.Services.Location;
 
-public sealed class LocationService(ILocationResource locationResource) : ILocationService
+using BenchlyBackend.Models.Locations;
+
+public sealed class LocationService(ILocationRepository locationRepository) : ILocationService
 {
-    private readonly ILocationResource _locationResource = locationResource
-        ?? throw new ArgumentNullException(nameof(locationResource));
+    private readonly ILocationRepository _locationRepository = locationRepository
+        ?? throw new ArgumentNullException(nameof(locationRepository));
 
-    public async Task<List<Models.Locations.Location>> GetLocationsForUsersMapViewAsync(double minLat, double maxLat, double minLng, double maxLng)
-        => await _locationResource.GetLocationsForUsersMapViewAsync(minLat, maxLat, minLng, maxLng);
+    public async Task<List<Location>> GetLocationsForUsersMapViewAsync(double minLat, double maxLat, double minLng, double maxLng)
+    {
+        if (minLat > maxLat || minLng > maxLng)
+        {
+            throw new InvalidOperationException("Invalid latitude or longitude range provided.");
+        }
 
-    public async Task<bool> AddLocationAsync(Models.Locations.Location location)
+        return await _locationRepository.GetLocationsForUsersMapViewAsync(minLat, maxLat, minLng, maxLng);
+    }
+
+    public async Task<bool> AddLocationAsync(Location location)
     {
         ArgumentNullException.ThrowIfNull(location, nameof(location));
 
-        return await _locationResource.AddLocationAsync(location);
+        return await _locationRepository.AddLocationAsync(location);
     }
 }

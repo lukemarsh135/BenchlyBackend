@@ -3,10 +3,10 @@
 namespace BenchlyBackend.DataService.Repositories.Location;
 
 /// <summary>
-///     Location Resource.
+///     Location Repository.
 /// </summary>
 [Registration]
-public interface ILocationResource
+public interface ILocationRepository
 {
     /// <summary>
     ///     Get all locations for all the locations within the user's specified map asynchronously.

@@ -1,26 +1,28 @@
-﻿using BenchlyBackend.Infrastructure.Attributes;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using BenchlyBackend.Models.Locations;
+using System.Text.Json.Serialization;
 
 namespace BenchlyBackend.Models.Reviews;
 
 /// <summary>
 ///     Defines a review that can be added to a location.
 /// </summary>
-[Entity]
-public class Review 
+public sealed class Review 
 {
     /// <summary>
     ///     The unique identifier for the location.
     /// </summary>
-    [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
 
     /// <summary>
-    ///     The unique identifier for the location that this review is associated with.
+    ///     The unique (foreign key) identifier for the location that this review is associated with.
     /// </summary>
     public int LocationId { get; set; }
+
+    /// <summary>
+    ///     Navigation property to the location that this review is associated with.
+    /// </summary>
+    [JsonIgnore]
+    public Location? Location { get; set; } = default!;
 
     /// <summary>
     ///     The comments associated with the review.
@@ -30,7 +32,7 @@ public class Review
     /// <summary>
     ///     The rating (out of 5) given to the location in the review.
     /// </summary>
-    public int Rating { get; set; }
+    public int? Rating { get; set; }
 
     /// <summary>
     ///     The date and time the review was posted.
