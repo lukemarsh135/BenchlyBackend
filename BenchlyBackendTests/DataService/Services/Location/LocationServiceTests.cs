@@ -33,10 +33,28 @@ public sealed class LocationServiceTests : IDisposable
     }
 
     [Fact]
+    public async Task LocationService_GetLocationsForUsersMapViewAsync_Throws_InvalidOperationException_On_Invalid_Range()
+    {
+        // Arrange
+        double minLat = 20.0;
+        double maxLat = 10.0; // Invalid range
+        double minLng = 30.0;
+        double maxLng = 40.0;
+
+        // Act & Assert
+        var ex = await Assert.ThrowsAsync<InvalidOperationException>(async () => await LocationService!.GetLocationsForUsersMapViewAsync(minLat, maxLat, minLng, maxLng));
+        Assert.Equal("Invalid latitude or longitude range provided.", ex.Message);
+    }
+
+    [Fact]
     public async Task LocationService_AddLocationAsync_CallsRepository_Correctly()
     {
         // Arrange
-        var location = new Location();
+        var location = new Location
+        {
+            Latitude = 15,
+            Longitude = 35
+        };
 
         // Act
 

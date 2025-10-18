@@ -12,9 +12,11 @@ public sealed class ReviewRepository(DatabaseContext dbContext, ILogger<ReviewRe
     private readonly ILogger<ReviewRepository> _logger = logger
         ?? throw new ArgumentNullException(nameof(logger));
 
+    /// <inheritdoc/>
     public async Task<bool> AddReviewAsync(Review review)
     {
         using var transaction = await _dbContext.Database.BeginTransactionAsync();
+
         try
         {
             _dbContext.Reviews.Add(review);

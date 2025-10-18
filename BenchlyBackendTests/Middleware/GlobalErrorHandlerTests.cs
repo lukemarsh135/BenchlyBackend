@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using System.Text.Json;
 
-namespace BenchlyBackendTests.DataService.Middleware;
+namespace BenchlyBackendTests.Middleware;
 public sealed class GlobalErrorHandlerTests
 {
     public static IEnumerable<object[]> ExceptionTestData =>

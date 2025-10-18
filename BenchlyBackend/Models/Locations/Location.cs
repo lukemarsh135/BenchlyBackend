@@ -16,6 +16,7 @@ public sealed class Location
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
+
     /// <summary>
     ///     Images associated with the location.
     /// </summary>
@@ -44,7 +45,7 @@ public sealed class Location
     /// <summary>
     ///     The distance from the current location in miles.
     /// </summary>
-    public decimal DistanceFromCurrentLocationMiles { get; set; }
+    public double DistanceFromCurrentLocationMiles { get; set; }
 
     /// <summary>
     ///     The date and time the location was added.

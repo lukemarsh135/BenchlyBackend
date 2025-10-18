@@ -13,7 +13,8 @@ public sealed class LocationRepository(DatabaseContext dbContext, ILogger<Locati
     private readonly ILogger<LocationRepository> _logger = logger
         ?? throw new ArgumentNullException(nameof(logger));
 
-    public async Task<List<Models.Locations.Location>> GetLocationsForUsersMapViewAsync(double minLat, double maxLat, double minLng, double maxLng)
+    /// <inheritdoc/>
+    public async Task<List<Location>> GetLocationsForUsersMapViewAsync(double minLat, double maxLat, double minLng, double maxLng)
     {
         if (minLat == 0 || maxLat == 0 ||
             minLng == 0 || maxLng == 0)
@@ -30,6 +31,7 @@ public sealed class LocationRepository(DatabaseContext dbContext, ILogger<Locati
            .ToListAsync();
     }
 
+    /// <inheritdoc/>
     public async Task<bool> AddLocationAsync(Location location)
     {
         using var transaction = await _dbContext.Database.BeginTransactionAsync();
@@ -39,6 +41,8 @@ public sealed class LocationRepository(DatabaseContext dbContext, ILogger<Locati
             _dbContext.Locations.Add(location);
             await _dbContext.SaveChangesAsync();
             transaction.Commit();
+            _logger.LogInformation("Added location: {Location}", location);
+
             return true;
         }
         catch (Exception e)

@@ -8,6 +8,7 @@ public sealed class ReviewService(IReviewRepository reviewRepository) : IReviewS
     private readonly IReviewRepository _reviewRepository = reviewRepository
         ?? throw new ArgumentNullException(nameof(reviewRepository));
 
+    /// <inheritdoc/>
     public async Task<bool> AddReviewAsync(Review review)
     {
         ArgumentNullException.ThrowIfNull(review);
